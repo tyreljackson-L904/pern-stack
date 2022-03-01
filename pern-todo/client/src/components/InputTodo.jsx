@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import '../styles/InputTodo.css';
 
 const InputTodo = () => {
   const [description, setDescription] = useState('');
@@ -20,18 +21,18 @@ const InputTodo = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="text-center mt-5">Pern Todo List</h1>
+    <div>
+      <h1 className="text-center mt-5 title">Pern Todo List</h1>
       <Form className="mt-5 w-50 m-auto" onSubmit={onSubmitForm}>
         <Form.Group className="d-flex justify-content-center">
           <Form.Control
             type="text"
             placeholder="description"
-            className="mx-5"
+            className="mx-5 input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Button type="submit" variant="success" className="px-4">
+          <Button type="submit" variant="success" className="px-4 add-btn">
             Add
           </Button>
         </Form.Group>

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import EditTodo from './EditTodo';
+import "../styles/ListTodos.css"
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -33,8 +34,8 @@ const ListTodos = () => {
 
   return (
     <Table striped bordered hover className="w-50 mt-5 m-auto text-center">
-      <thead>
-        <tr>
+      <thead className='table-head'>
+        <tr className='header-row'>
           <th>Todo</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -44,7 +45,7 @@ const ListTodos = () => {
         {todos.map((todo) => {
           return (
             <tr key={todo.todo_id}>
-              <td>{todo.description}</td>
+              <td className='description'>{todo.description}</td>
               <td>
                 <EditTodo todo={todo}/>
               </td>
