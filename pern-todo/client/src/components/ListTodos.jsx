@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import EditTodo from './EditTodo';
 
 const ListTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -17,14 +18,11 @@ const ListTodos = () => {
     }
   };
 
-  const onEditTodo = ({ id }) => {};
-
   const onDeleteTodo = async (id) => {
     await fetch(TODO_BASE_URL + `/${id}`, {
       method: 'DELETE',
     });
     setTodos(todos.filter((todo) => todo.todo_id !== id));
-    // window.location = '/';
   };
 
   useEffect(() => {
@@ -48,9 +46,7 @@ const ListTodos = () => {
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>
               <td>
-                <Button type="text" onClick={onEditTodo}>
-                  Edit
-                </Button>
+                <EditTodo todo={todo}/>
               </td>
               <td>
                 <Button
