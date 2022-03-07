@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 })
 
 //create a user
-app.post("/user", async (req, res) => {
+app.post("/users", async (req, res) => {
     try {
         const { usertype, district, citycouncilrep, name, email, phonenumber, password } = req.body;
         const newUser = await pool.query("INSERT INTO communityuser (usertype, district, citycouncilrep, name, email, phonenumber, password) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *", [usertype, district, citycouncilrep, name, email, phonenumber, password])
@@ -25,6 +25,15 @@ app.post("/user", async (req, res) => {
 })
 
 //list all users
+app.get("/users", async(req, res) => {
+    try {
+        const users = await pool.query("SELECT * FROM communityuser")
+        res.json(users.rows)
+
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 //get a user
 
