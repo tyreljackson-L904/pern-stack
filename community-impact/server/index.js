@@ -36,10 +36,38 @@ app.get("/users", async(req, res) => {
 })
 
 //get a user
+app.get("/users/:id", async(req, res) => {
+    try {
+        const {id} = req.params
+        const getUser = await pool.query("SELECT * FROM communityuser WHERE id = $1", [id])
+        console.log(res.json(getUser.rows[0]))
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 //update a user
+app.put("/users/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const {usertype, district, citycouncilrep, name, email, phonenumber, password} = req.body
+        const updateUser = await pool.query(`UPDATE  SET communityuser WHERE id = $1`, [id, usertype, district, citycouncilrep, name, email, phonenumber, password])
+        res.json(updateUser)
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 //delete a user
+app.delete("/users/:id", async(req, res) => {
+    try {
+        const { id } = req.params
+        await pool.query("DELETE FROM communityuser WHERE id = $1 RETURNING *", [id])
+        res.json("todo was deleted")
+    } catch (err) {
+        console.error(err.message)
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
